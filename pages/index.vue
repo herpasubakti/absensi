@@ -41,7 +41,7 @@ const kirimData = async () => {
             </nuxt-link>
         </div>
         <div class="card shadow-lg">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-white" style="background-color: #18a5d0;">
                 <h4 class="mb-0 text-center">Form Absensi</h4>
             </div>
             <div class="card-body">
@@ -137,6 +137,7 @@ const kirimData = async () => {
     .card-header {
         padding: 1.25rem;
         border-radius: 15px;
+
     }
 
     .form-select {
@@ -159,9 +160,24 @@ const kirimData = async () => {
     font-weight: 500;
     border-radius: 8px;
     transition: all 0.3s ease;
+    background-color: #18a5d0 !important;
+    border: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(24, 165, 208, 0.3);
+    background-color: #1590b6 !important;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(24, 165, 208, 0.3);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 3px rgba(24, 165, 208, 0.25);
 }
 </style>

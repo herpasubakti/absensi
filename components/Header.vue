@@ -2,7 +2,7 @@
     <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="assets/img/image.webp" alt="Logo" width="50" height="50" class="d-inline-block me-2">
+                <img src="assets/image.webp" alt="Logo" width="50" height="50" class="d-inline-block me-2">
                 <h4 class="mb-0 header-title">Absensi Siswa PKL PUPR</h4>
             </a>
         </div>
