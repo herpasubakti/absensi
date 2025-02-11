@@ -51,7 +51,7 @@ onMounted(() => {
     <div class="container">
         <nuxt-link to="/" class="text-decoration-none">
             <div class="d-flex justify-content-start align-items-center mb-4">
-                <button class="btn btn-outline-primary d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary d-flex align-items-center gap-2 mt-5">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16">
                         <path fill-rule="evenodd"

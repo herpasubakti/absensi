@@ -8,22 +8,75 @@ useHead({
         },
     ],
 });
+
 const supabase = useSupabaseClient();
-const members = ref([]);
-const objectives = ref([]);
+const router = useRouter();
+
+// Initialize form data
 const form = ref({
-    nama: "",
-    sekolah: "",
-    jurusan: "",
-    bidang: "",
-    ket: "",
+    nama: '',
+    sekolah: '',
+    jurusan: '',
+    bidang: '',
+    ket: '',
+    tgl: new Date().toISOString().split('T')[0] // Add current date
+});
+
+const formErrors = ref({
+    nama: false,
+    sekolah: false,
+    jurusan: false,
+    bidang: false,
+    ket: false
 });
 
 const kirimData = async () => {
-    const { error } = await supabase.from("absen").insert([form.value]);
-    if (!error) navigateTo("/riwayat");
-};
+    try {
+        // Reset errors
+        Object.keys(formErrors.value).forEach(key => formErrors.value[key] = false);
 
+        // Check for empty fields
+        let hasError = false;
+        Object.keys(form.value).forEach(key => {
+            if (!form.value[key] && key !== 'tgl') { // Skip date validation
+                formErrors.value[key] = true;
+                hasError = true;
+            }
+        });
+
+        if (hasError) {
+            return; // Stop if there are errors
+        }
+
+        // Submit if all fields are filled
+        const { error } = await supabase
+            .from('absen')
+            .insert([form.value]);
+
+        if (error) throw error;
+
+        // Reset form after successful submission
+        Object.keys(form.value).forEach(key => {
+            if (key !== 'tgl') form.value[key] = '';
+        });
+
+        // Navigate to riwayat page
+        await navigateTo('/riwayat');
+
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('Terjadi kesalahan saat mengirim data');
+    }
+};
+onMounted(async () => {
+    try {
+        const { data, error } = await supabase.from('absen').select('*').limit(1);
+        if (error) throw error;
+        console.log('Supabase connection successful');
+    } catch (err) {
+        console.error('Supabase connection error:', err);
+    }
+});
 </script>
 
 <template>
@@ -49,51 +102,66 @@ const kirimData = async () => {
                     <div class="mb-4">
                         <label class="form-label">Nama Siswa</label>
                         <select v-model="form.nama" class="form-select">
-                            <option selected disabled>Pilih nama siswa</option>
+                            <option value="" selected disabled>Pilih nama siswa</option>
                             <option value="Herpa Ardi Subakti">Herpa Ardi Subakti</option>
                             <option value="Fauzan Firdaus">Fauzan Firdaus</option>
                             <!-- <option value="3">Three</option> -->
                         </select>
+                        <div class="invalid-feedback" v-if="formErrors.nama">
+                            Nama siswa wajib diisi
+                        </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Sekolah</label>
                         <select v-model="form.sekolah" class="form-select">
-                            <option selected disabled>Pilih Sekolah</option>
+                            <option value="" selected disabled>Pilih Sekolah</option>
                             <option value="SMKN 4 Tasikmalaya">SMKN 4 Tasikmalaya</option>
                             <!-- <option value="2">Two</option> -->
                             <!-- <option value="3">Three</option> -->
                         </select>
+                        <div class="invalid-feedback" v-if="formErrors.sekolah">
+                            Sekolah wajib diisi
+                        </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Jurusan</label>
                         <select v-model="form.jurusan" class="form-select">
-                            <option selected disabled>Pilih jurusan</option>
+                            <option value="" selected disabled>Pilih jurusan</option>
                             <option value="PPLG">PPLG</option>
                             <!-- <option value="2">Two</option> -->
                             <!-- <option value="3">Three</option> -->
                         </select>
+                        <div class="invalid-feedback" v-if="formErrors.jurusan">
+                            Jurusan wajib diisi
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Bidang</label>
                         <select v-model="form.bidang" class="form-select">
-                            <option selected disabled>Pilih Bidang</option>
+                            <option value="" selected disabled>Pilih Bidang</option>
                             <option value="Permukiman">Permukiman</option>
                             <!-- <option value="2">Two</option> -->
                             <!-- <option value="3">Three</option> -->
                         </select>
+                        <div class="invalid-feedback" v-if="formErrors.bidang">
+                            Bidang wajib diisi
+                        </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Keterangan</label>
                         <select v-model="form.ket" class="form-select">
-                            <option selected disabled>Pilih Keterangan</option>
+                            <option value="" selected disabled>Pilih Keterangan</option>
                             <option value="Hadir">Hadir</option>
                             <option value="Sakit">Sakit</option>
                             <option value="Izin">Izin</option>
                             <option value="Alpha">Alpha</option>
                         </select>
+                        <div class="invalid-feedback" v-if="formErrors.ket">
+                            Keterangan wajib diisi
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Submit</button>
