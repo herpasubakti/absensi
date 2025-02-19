@@ -2,7 +2,7 @@
     <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="assets/image.webp" alt="Logo" width="50" height="50" class="d-inline-block me-2">
+                <img src="assets/pupr-logo.png" alt="Logo" width="50" height="50" class="d-inline-block me-2 ">
                 <h4 class="mb-0 header-title">Absensi Siswa PKL PUPR</h4>
             </a>
         </div>
@@ -22,7 +22,7 @@
     letter-spacing: 0.5px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    transition: all 0.3s ease;
+
 }
 
 .header-title:hover {
