@@ -105,8 +105,13 @@ onMounted(async () => {
                             <option value="" selected disabled>Pilih nama siswa</option>
                             <option value="Herpa Ardi Subakti">Herpa Ardi Subakti</option>
                             <option value="Fauzan Firdaus">Fauzan Firdaus</option>
-                            <!-- <option value="3">Three</option> -->
+                            <option value="Rositasari ">Rositasari </option>
+                            <option value="Leni">Leni</option>
+                            <option value="Ade Asri">Ade Asri</option>
+                            <option value="Putri">Putri</option>
+                            <option value="Neng Maryati">Neng Maryati</option>
                         </select>
+
                         <div class="invalid-feedback" v-if="formErrors.nama">
                             Nama siswa wajib diisi
                         </div>
@@ -117,33 +122,35 @@ onMounted(async () => {
                         <select v-model="form.sekolah" class="form-select">
                             <option value="" selected disabled>Pilih Sekolah</option>
                             <option value="SMKN 4 Tasikmalaya">SMKN 4 Tasikmalaya</option>
-                            <!-- <option value="2">Two</option> -->
-                            <!-- <option value="3">Three</option> -->
+                            <option value="SMKN Manonjaya">SMKN Manonjaya</option>
+
                         </select>
                         <div class="invalid-feedback" v-if="formErrors.sekolah">
                             Sekolah wajib diisi
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label class="form-label">Jurusan</label>
                         <select v-model="form.jurusan" class="form-select">
                             <option value="" selected disabled>Pilih jurusan</option>
                             <option value="PPLG">PPLG</option>
-                            <!-- <option value="2">Two</option> -->
-                            <!-- <option value="3">Three</option> -->
+                          
                         </select>
                         <div class="invalid-feedback" v-if="formErrors.jurusan">
                             Jurusan wajib diisi
                         </div>
-                    </div>
+                    </div> -->
                     <div class="mb-4">
                         <label class="form-label">Bidang</label>
                         <select v-model="form.bidang" class="form-select">
                             <option value="" selected disabled>Pilih Bidang</option>
                             <option value="Permukiman">Permukiman</option>
-                            <!-- <option value="2">Two</option> -->
-                            <!-- <option value="3">Three</option> -->
+                            <option value="Bidang Tata Bangunan">Bidang Tata Bangunan</option>
+                            <option value="Bidang Keuangan ">Bidang Keuangan </option>
+                            <option value="Bidang SPALD">Bidang SPALD</option>
+                            <option value="Bidang PEP">Bidang PEP</option>
+
                         </select>
                         <div class="invalid-feedback" v-if="formErrors.bidang">
                             Bidang wajib diisi
