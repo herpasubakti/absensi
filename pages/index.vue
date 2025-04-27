@@ -12,14 +12,13 @@ useHead({
 const supabase = useSupabaseClient();
 const router = useRouter();
 
-// Initialize form data
 const form = ref({
     nama: '',
     sekolah: '',
     jurusan: '',
     bidang: '',
     ket: '',
-    tgl: new Date().toISOString().split('T')[0] // Add current date
+    tgl: new Date().toISOString().split('T')[0]
 });
 
 const formErrors = ref({
@@ -30,53 +29,47 @@ const formErrors = ref({
     ket: false
 });
 
+
 const kirimData = async () => {
     try {
-        // Reset errors
         Object.keys(formErrors.value).forEach(key => formErrors.value[key] = false);
-
-        // Check for empty fields
+        const requiredFields = ['nama', 'sekolah', 'bidang', 'ket'];
         let hasError = false;
-        Object.keys(form.value).forEach(key => {
-            if (!form.value[key] && key !== 'tgl') { // Skip date validation
+
+        requiredFields.forEach(key => {
+            if (!form.value[key]) {
                 formErrors.value[key] = true;
                 hasError = true;
             }
         });
 
         if (hasError) {
-            return; // Stop if there are errors
+            alert('Mohon isi semua field yang wajib diisi');
+            return;
         }
-
-        // Submit if all fields are filled
+        const formData = {
+            ...form.value,
+            tgl: new Date().toISOString().split('T')[0]
+        };
         const { error } = await supabase
             .from('absen')
-            .insert([form.value]);
+            .insert([formData]);
 
-        if (error) throw error;
-
-        // Reset form after successful submission
+        if (error) {
+            console.error('Supabase error:', error);
+            throw error;
+        }
+        alert('Data berhasil disimpan!');
         Object.keys(form.value).forEach(key => {
             if (key !== 'tgl') form.value[key] = '';
         });
-
-        // Navigate to riwayat page
         await navigateTo('/riwayat');
 
     } catch (error) {
-        console.error('Error submitting form:', error);
+        console.error('Error:', error);
         alert('Terjadi kesalahan saat mengirim data');
     }
 };
-onMounted(async () => {
-    try {
-        const { data, error } = await supabase.from('absen').select('*').limit(1);
-        if (error) throw error;
-        console.log('Supabase connection successful');
-    } catch (err) {
-        console.error('Supabase connection error:', err);
-    }
-});
 </script>
 
 <template>
@@ -194,7 +187,6 @@ onMounted(async () => {
     transition: all 0.3s ease;
 }
 
-/* Responsive adjustments */
 @media (max-width: 576px) {
     .container {
         padding: 10px;

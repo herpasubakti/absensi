@@ -13,7 +13,6 @@ const visitors = ref([]);
 import * as XLSX from 'xlsx';
 
 const exportToExcel = () => {
-    // Prepare the data for export
     const exportData = visitors.value.map((visitor, index) => ({
         'No': index + 1,
         'Tanggal': visitor.tgl,
@@ -23,18 +22,10 @@ const exportToExcel = () => {
         'Bidang': visitor.bidang,
         'Keterangan': visitor.ket
     }));
-
-    // Create worksheet
     const ws = XLSX.utils.json_to_sheet(exportData);
-
-    // Create workbook
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Absensi');
-
-    // Generate file name with current date
     const fileName = `Absensi_${new Date().toISOString().split('T')[0]}.xlsx`;
-
-    // Export to Excel
     XLSX.writeFile(wb, fileName);
 };
 
@@ -84,7 +75,7 @@ onMounted(() => {
                                 <th scope="col" class="py-3">Tanggal</th>
                                 <th scope="col" class="py-3">Nama Siswa</th>
                                 <th scope="col" class="py-3">Sekolah</th>
-                                <th scope="col" class="py-3">Jurusan</th>
+                                <!-- <th scope="col" class="py-3">Jurusan</th> -->
                                 <th scope="col" class="py-3">Bidang</th>
                                 <th scope="col" class="py-3">Keterangan</th>
                             </tr>
@@ -95,7 +86,7 @@ onMounted(() => {
                                 <td>{{ visitor.tgl }}</td>
                                 <td>{{ visitor.nama }}</td>
                                 <td>{{ visitor.sekolah }}</td>
-                                <td>{{ visitor.jurusan }}</td>
+                                <!-- <td>{{ visitor.jurusan }}</td> -->
                                 <td>{{ visitor.bidang }}</td>
                                 <td>{{ visitor.ket }}</td>
 
@@ -171,7 +162,6 @@ onMounted(() => {
     transform: translateX(-5px);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
