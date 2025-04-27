@@ -122,18 +122,6 @@ const kirimData = async () => {
                             Sekolah wajib diisi
                         </div>
                     </div>
-
-                    <!-- <div class="mb-4">
-                        <label class="form-label">Jurusan</label>
-                        <select v-model="form.jurusan" class="form-select">
-                            <option value="" selected disabled>Pilih jurusan</option>
-                            <option value="PPLG">PPLG</option>
-                          
-                        </select>
-                        <div class="invalid-feedback" v-if="formErrors.jurusan">
-                            Jurusan wajib diisi
-                        </div>
-                    </div> -->
                     <div class="mb-4">
                         <label class="form-label">Bidang</label>
                         <select v-model="form.bidang" class="form-select">
